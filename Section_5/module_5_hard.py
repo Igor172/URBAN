@@ -3,8 +3,11 @@ import time
 class User:
     def __init__(self, nickname: str, password: str, age: int):
         self.nickname = nickname
-        self.password = password
+        self.password = hash(password)
         self.age = age
+
+    def __str__(self):
+        return f'{self.nickname}'
 
 
 class Video:
@@ -15,7 +18,7 @@ class Video:
         self.adult_mode = adult_mode
 
 
-class UrTube(User, Video):
+class UrTube:
     def __init__(self):
         self.users = []
         self.videos = []
@@ -26,7 +29,7 @@ class UrTube(User, Video):
 
     def log_in(self, nickname, password):
         for user in self.users:
-            if user.nickname == nickname and user.password == password:
+            if user.nickname == nickname and user.password == hash(password):
                 self.current_user = user
                 return
         print("Пользователь не найден")
@@ -95,3 +98,4 @@ print(ur.current_user)
 
 # Попытка воспроизведения несуществующего видео
 ur.watch_video('Лучший язык программирования 2024 года!')
+
