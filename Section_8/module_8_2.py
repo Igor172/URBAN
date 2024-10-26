@@ -1,32 +1,32 @@
 def personal_sum(numbers):
     result = 0
     incorrect_data = 0
-    global mount_num
-    mount_num = 0
+    global count_num
+    count_num = 0
     try:
         for num in numbers:
             if isinstance(num, (int, float)):
                 result += num
-                mount_num += 1
+                count_num += 1
             else:
-                raise TypeError
-    except TypeError as exc:
-        incorrect_data += 1
-        print(f'Некорректный тип данных {exc} для подсчета суммы - {incorrect_data}')
-    return result, incorrect_data
+                incorrect_data += 1
+                print(f'Некорректный тип данных для подсчета суммы - {num}')
+        raise TypeError
+    except TypeError:
+        return result, incorrect_data
 
 def calculate_average(numbers):
-    global mount_num
+    global count_num
     try:
-        total_sum, incorrect_data = personal_sum(numbers)
+        result, incorrect_data = personal_sum(numbers)
         if len(numbers) == 0:
-            raise ZeroDivisionError
-        average = total_sum / mount_num
+            raise TypeError
+        average = result / count_num
         return average
-    except ZeroDivisionError as exc:
+    except ZeroDivisionError:
         return 0
-    except TypeError as exc:
-        print(f'В {numbers} записан некорректный тип данных. {exc}')
+    except TypeError:
+        print(f'В {numbers} записан некорректный тип данных.')
         return None
 
 
