@@ -1,4 +1,3 @@
-import threading
 from multiprocessing import Pool
 import time
 
@@ -6,9 +5,11 @@ import time
 def read_info(name):
     all_data = []
     with open(name, 'r') as file:
-        string_in_file = file.readline()
-        all_data.append(string_in_file)
-
+        while True:
+            string_in_file = file.readline()
+            all_data.append(string_in_file)
+            if not string_in_file:
+                break
 
 
 if __name__ == '__main__':
@@ -16,10 +17,10 @@ if __name__ == '__main__':
 
     start_time = time.time()
     for name in filenames:
-        thread_n = threading.Thread(target=read_info, args=(name,))
-        thread_n.start()
+        read_info(name)            #Запускаем функцию 4 раза и обрабатываем наши файлы поочередно одним потоком MainThread
     stop_time = time.time()
     print(f'Время выполнения с помощью многопоточности составило {stop_time - start_time}')
+
 
 
     start_time = time.time()
@@ -27,5 +28,3 @@ if __name__ == '__main__':
         multiproc = p.map(read_info, filenames)
     stop_time = time.time()
     print('Время выполнения с помощью многопроцессности составило: ', stop_time - start_time)
-
-
