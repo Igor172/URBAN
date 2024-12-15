@@ -14,19 +14,19 @@ class TournamentTest(TestCase):
         self.runner2 = rat.Runner('Андрей', 9)
         self.runner3 = rat.Runner('Ник', 3)
 
-    def tour1(self):
+    def test_tour1(self):
         tour1 = rat.Tournament(90, self.runner1, self.runner3)
         tour1.start()
         self.all_results.update(tour1.start())
         self.assertTrue(self.all_results[len(self.all_results) - 1] == 'Ник', 'Ник всегда должен быть последним')
 
-    def tour2(self):
+    def test_tour2(self):
         tour2 = rat.Tournament(90, self.runner2, self.runner3)
         tour2.start()
         self.all_results.update(tour2.start())
         self.assertTrue(self.all_results[len(self.all_results) - 1] == 'Ник', 'Ник всегда должен быть последним')
 
-    def tour3(self):
+    def test_tour3(self):
         tour3 = rat.Tournament(90, self.runner1, self.runner2, self.runner3)
         tour3.start()
         self.all_results.update(tour3.start())
