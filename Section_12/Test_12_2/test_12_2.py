@@ -16,27 +16,27 @@ class TournamentTest(TestCase):
 
     def test_tour1(self):
         tour1 = rat.Tournament(90, self.runner1, self.runner3)
-        tour1.start()
-        self.all_results.update(tour1.start())
-        self.assertTrue(self.all_results[len(self.all_results) - 1] == 'Ник', 'Ник всегда должен быть последним')
+        result = tour1.start()
+        self.assertTrue(result[list(result.keys())[-1]] == 'Ник', 'Ошибка! Последним должен быть Ник')
+        self.all_results['test_turn1'] = result
 
     def test_tour2(self):
         tour2 = rat.Tournament(90, self.runner2, self.runner3)
-        tour2.start()
-        self.all_results.update(tour2.start())
-        self.assertTrue(self.all_results[len(self.all_results) - 1] == 'Ник', 'Ник всегда должен быть последним')
+        result = tour2.start()
+        self.assertTrue(result[list(result.keys())[-1]] == 'Ник', 'Ошибка! Последним должен быть Ник')
+        self.all_results['test_turn2'] = result
 
     def test_tour3(self):
         tour3 = rat.Tournament(90, self.runner1, self.runner2, self.runner3)
-        tour3.start()
-        self.all_results.update(tour3.start())
-        self.assertTrue(self.all_results[len(self.all_results) - 1] == 'Ник', 'Ник всегда должен быть последним')
+        result = tour3.start()
+        self.assertTrue(result[list(result.keys())[-1]] == 'Ник', 'Ошибка! Последним должен быть Ник')
+        self.all_results['test_turn3'] = result
 
-
+    @classmethod
     def tearDownClass(cls):
-        for key, value in cls.all_results.items():
-            for el in value:
-                print(el)
+        for test_key, test_value in cls.all_results.items():
+            for key, value in test_value.items():
+                print(f'{key}: {value.name}')
 
 
 if __name__ == '__main__':
