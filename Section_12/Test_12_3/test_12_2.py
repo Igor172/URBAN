@@ -1,9 +1,13 @@
 import unittest
 from unittest import TestCase
-from Section_12.Test_12_3 import runner_and_tournament as rat
+import runner_and_tournament as rat
+
+
 
 
 class TournamentTest(TestCase):
+
+    is_frozen = True
 
     @classmethod
     def setUpClass(cls):
@@ -14,18 +18,21 @@ class TournamentTest(TestCase):
         self.runner2 = rat.Runner('Андрей', 9)
         self.runner3 = rat.Runner('Ник', 3)
 
+    @unittest.skipIf(TournamentTest.is_frozen == True, 'Тесты в этом кейсе заморожены')
     def test_tour1(self):
         tour1 = rat.Tournament(90, self.runner1, self.runner3)
         result = tour1.start()
         self.assertTrue(result[list(result.keys())[-1]] == 'Ник', 'Ошибка! Последним должен быть Ник')
         self.all_results['test_turn1'] = result
 
+    @unittest.skipIf(TournamentTest.is_frozen == True, 'Тесты в этом кейсе заморожены')
     def test_tour2(self):
         tour2 = rat.Tournament(90, self.runner2, self.runner3)
         result = tour2.start()
         self.assertTrue(result[list(result.keys())[-1]] == 'Ник', 'Ошибка! Последним должен быть Ник')
         self.all_results['test_turn2'] = result
 
+    @unittest.skipIf(TournamentTest.is_frozen == True, 'Тесты в этом кейсе заморожены')
     def test_tour3(self):
         tour3 = rat.Tournament(90, self.runner1, self.runner2, self.runner3)
         result = tour3.start()
